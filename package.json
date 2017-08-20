@@ -1,0 +1,23 @@
+{
+  "name": "eth-yellowpage",
+  "version": "1.0.0",
+  "description": "read registered eth contract address from their names",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lkiversonlk/eth-yellowpage.git"
+  },
+  "keywords": [
+    "eth",
+    "yellowpage"
+  ],
+  "author": "jerry.kan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lkiversonlk/eth-yellowpage/issues"
+  },
+  "homepage": "https://github.com/lkiversonlk/eth-yellowpage#readme"
+}
