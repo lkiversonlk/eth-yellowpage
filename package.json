@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/lkiversonlk/eth-yellowpage/issues"
   },
-  "homepage": "https://github.com/lkiversonlk/eth-yellowpage#readme"
+  "homepage": "https://github.com/lkiversonlk/eth-yellowpage#readme",
+  "dependencies": {
+    "web3": "^0.20.1"
+  }
 }
