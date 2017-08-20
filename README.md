@@ -27,7 +27,8 @@ You may use this npm package to read from the contract.
 #### initial
 1. Connect to the ethereum using web3.js
 2. Init the YellowPage with the web3 instance
-                
+        
+        var YellowPage = require("eth-yellowpage").EthYellowPage;        
         var yellowPage = new YellowPage(web3);
 that's all!
 #### get specified contract's info by name
