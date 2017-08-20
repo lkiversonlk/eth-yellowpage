@@ -1,5 +1,5 @@
 var config = require("./config.json");
-var abi = require("./abi.json").abi;
+var abi = require("./build/contracts/YellowPage.json").abi;
 var web3 = require("web3");
 
 function make(web, abi) {
@@ -50,8 +50,9 @@ EthYellowPage.prototype.GetName = function (i) {
     return this.web.toUtf8(data)
 };
 
-EthYellowPage.prototype.ReadByAddress = function () {
-
+EthYellowPage.prototype.Owner = function () {
+    var data = this.instance.owner();
+    return data;
 };
 
 exports.EthYellowPage = EthYellowPage;

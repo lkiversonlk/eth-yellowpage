@@ -1,1 +1,6 @@
 node_modules
+test
+migrations
+test.js
+truffle.js
+contracts/Migrations.sol
