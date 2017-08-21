@@ -5,7 +5,6 @@ contract YellowPage {
         address c_addr;
         address owner;
         bytes32 url;
-        bytes32 abi_url;
         bool    set;
     }
 
@@ -22,7 +21,7 @@ contract YellowPage {
         owner = newOwner;
     }
 
-    function SetPage(bytes32 name, address c_addr, bytes32 url, bytes32 abi_url) {
+    function SetPage(bytes32 name, address c_addr, bytes32 url) {
         if(pages[name].set){
             require(msg.sender == owner || msg.sender == pages[name].owner);
         } else {
@@ -32,7 +31,6 @@ contract YellowPage {
         pages[name].c_addr = c_addr;
         pages[name].owner = msg.sender;
         pages[name].url = url;
-        pages[name].abi_url = abi_url;
     }
 
     function NamesCount() public constant returns(uint count) {
