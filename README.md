@@ -42,18 +42,36 @@ You may use this npm package to read from the contract.
         var YellowPage = require("eth-yellowpage").EthYellowPage;
         var Web3 = require("web3");
         var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));        
-        var yellowPage = new YellowPage(web3);
-that's all!
+        var yellowPage = new YellowPage(web3);        
+    that's all!
+    
 #### get specified contract's info by name 根据名称取合约信息
 
-        console.log(yellowPage.ReadByName("ab"));
+        var contractInfo = yellowPage.ReadByName("ab");
+        if(contractInfo){
+           ...
+        }
 
 #### get the total count of contract registered 获取注册合约总数
 
         console.log(yellowPage.TotalCount());
 
+#### start refresh contract info one by one every X seconds
+
+        yellowPage.StartCache(x); //x should be int
+        
+        /*
+         * you should only read from the cache
+         * don't try to modify it, will be overwritten
+         * it will take x * CountOfContract seconds to load the full contract
+         */
+        var cache = yellowPage.GetCache();
+         
 #### get the name of the contract by index 获取指定序号合约的名称
 
-        console.log(yellowPage.GetName(0));
+        var name = yellowPage.GetName(0);
+        if(name){
+            console.log(name);
+        }
 
 #### please contact me city.of.beijing@gmail.com 邮件地址

@@ -33,6 +33,7 @@ function EthYellowPage(web, addr) {
     this.constructor = make(web, abi);
 
     this.Cache = {};
+    this.refreshInterval = null;
 }
 
 
@@ -74,17 +75,46 @@ EthYellowPage.prototype.Owner = function () {
  */
 EthYellowPage.prototype.StartCache = function (interval) {
     var self = this;
-    function _refersh() {
-        var count = self.TotalCount()
+    if(self.refreshInterval) {
+        clearInterval(self.refreshInterval);
+        self.refreshInterval = null;
     }
 
-    function _loadSpecified(i, n){
-        var name = self.GetName(i);
-        if(name && name.length != 0){
-            page = self.instance.pages.call(name)
+    var count = self.TotalCount();
 
+    var state = {
+        i : 0,
+        n : count
+    };
+
+    function _loadSpecified(){
+        if(state.i >= state.n){
+            self.StartCache(interval)
+        } else{
+            var name = self.GetName(state.i);
+            if(name){
+                var page = self.ReadByName(name);
+                if(page){
+                    self.Cache[name] = page;
+                }
+            }
+            state.i = state.i + 1
         }
     }
+
+    self.refreshInterval = setInterval(_loadSpecified, interval * 1000);
+};
+
+EthYellowPage.prototype.StopCache = function () {
+    var self = this;
+    if(self.refreshInterval){
+        clearInterval(self.refreshInterval);
+    }
+    self.refreshInterval = null;
+};
+
+EthYellowPage.prototype.GetCache = function () {
+    return this.Cache;
 };
 
 exports.EthYellowPage = EthYellowPage;
