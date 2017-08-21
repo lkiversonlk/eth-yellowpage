@@ -1,6 +1,5 @@
 var config = require("./config.json");
 var abi = require("./build/contracts/YellowPage.json").abi;
-var web3 = require("web3");
 
 function make(web, abi) {
     //return constructor according to abi
@@ -32,12 +31,19 @@ function EthYellowPage(web, addr) {
     this.instance = contractAbi.at(this.address);
     this.abi = abi;
     this.constructor = make(web, abi);
+
+    this.Cache = {};
 }
 
 
 EthYellowPage.prototype.ReadByName = function (name) {
     var data = this.instance.pages.call(name);
-    return this.constructor(data);
+    var ret = this.constructor(data);
+    if(ret.set){
+        return ret;
+    } else {
+        return null;
+    }
 };
 
 EthYellowPage.prototype.TotalCount = function () {
@@ -47,12 +53,38 @@ EthYellowPage.prototype.TotalCount = function () {
 
 EthYellowPage.prototype.GetName = function (i) {
     var data = this.instance.names(i);
-    return this.web.toUtf8(data)
+    var name = this.web.toUtf8(data);
+    if(!name || name.length == 0) {
+        return null
+    } else {
+        return name;
+    }
 };
 
 EthYellowPage.prototype.Owner = function () {
     var data = this.instance.owner();
     return data;
+};
+
+
+/**
+ * refresh the cache at the speed of one contract at interval seconds
+ * @param interval
+ * @constructor
+ */
+EthYellowPage.prototype.StartCache = function (interval) {
+    var self = this;
+    function _refersh() {
+        var count = self.TotalCount()
+    }
+
+    function _loadSpecified(i, n){
+        var name = self.GetName(i);
+        if(name && name.length != 0){
+            page = self.instance.pages.call(name)
+
+        }
+    }
 };
 
 exports.EthYellowPage = EthYellowPage;
