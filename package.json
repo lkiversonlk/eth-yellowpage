@@ -1,6 +1,6 @@
 {
   "name": "eth-yellowpage",
-  "version": "2.0.5",
+  "version": "2.0.9",
   "description": "read registered eth contract address from their names",
   "main": "index.js",
   "scripts": {
